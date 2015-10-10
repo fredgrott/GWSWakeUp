@@ -21,11 +21,39 @@ Than in the module buildscript:
 
 ```groovy
 dependencies {
-       compile 'com.github.shareme:gwswakeup:library:tag@aar'
+       debug 'com.github.shareme:gwswakeup:library:tag@aar'
 
 ```
 The tag you will replace with the latest version number which you can find by clicking the release
 link above in the github UI to see what the latest version number is.
+
+Than in your debug source, AndroidManifest:
+
+```xml
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Add this as a debug manifest so the permissions won't be required by your production app -->
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.DISABLE_KEYGUARD" />
+</manifest>
+
+```
+Than in the base or home activity:
+
+```java
+public class BaseActivity extends Activity {
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        // Wake the device and show our activity
+        if (BuildConfig.DEBUG) {
+            // Calling this from your launcher activity is enough, but I needed a good example spot ;)
+            DebugUtils.riseAndShine(this);
+        }
+    }
+}
+```
 
 Target Android API Range
 ========================
