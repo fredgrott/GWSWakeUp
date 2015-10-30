@@ -21,7 +21,7 @@ Than in the module buildscript:
 
 
 ```groovy
-compile 'com.github.shareme:GWSWakeUp:1.0.0.0@aar'
+compile 'com.github.shareme:GWSWakeUp:{latest-release-number}@aar'
 ```
 
 
